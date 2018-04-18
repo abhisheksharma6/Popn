@@ -36,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.popn.Adapters.IdentityCustomeAdapter;
 import com.popn.AsyncResult;
+import com.popn.PopActivities.ExpandableHeightGridView;
 import com.popn.PopActivities.IdentiesMainActivity;
 import com.popn.PopActivities.Network_url;
 import com.popn.PopActivities.SessionManager;
@@ -72,7 +73,7 @@ public class EditInfoFragment extends Fragment implements View.OnClickListener{
     EditText IdName,PersonName,Age,Location;
     String profilepicencodedString=null;
     SocialIdModel socialIdModel1;
-    GridView gridView;
+    ExpandableHeightGridView gridView;
     Network_url network_url;
     List<SocialIdModel> ImagesList =new ArrayList<>();
     SocialIdModel socialIdModel;
@@ -102,7 +103,7 @@ public class EditInfoFragment extends Fragment implements View.OnClickListener{
         yellowCircle =(ImageView)view.findViewById(R.id.yellow_circle);
         skyCircle =(ImageView)view.findViewById(R.id.sky_blue_circle);
         grayCircle =(ImageView)view.findViewById(R.id.gray_circle);
-        gridView =(GridView)view.findViewById(R.id.customgrid);
+        gridView =(ExpandableHeightGridView)view.findViewById(R.id.customgrid);
         personImage =(CircleImageView) view.findViewById(R.id.profile_image);
         qr_code =(ImageView)view.findViewById(R.id.imageView2);
         IdName =(EditText)view.findViewById(R.id.identity_Name);
@@ -126,6 +127,7 @@ public class EditInfoFragment extends Fragment implements View.OnClickListener{
         delete.setOnClickListener(this);
         setData(identityInformationModel);
         getSocialId();
+        gridView.setExpanded(true);
         return view;
     }
     AsyncResult<String> asyncResult_clickRegisterBtn = new AsyncResult<String>() {
@@ -139,6 +141,7 @@ public class EditInfoFragment extends Fragment implements View.OnClickListener{
 
         }
     };
+
     private void getSocialId() {
         RequestQueue queue = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -159,7 +162,7 @@ public class EditInfoFragment extends Fragment implements View.OnClickListener{
                             String message = response.getString("message");
                             JSONArray jsonObj = new JSONArray(response.getString("data"));
 
-                            for(int i=0;i<jsonObj.length();i++) {
+                            for(int i=0; i<jsonObj.length(); i++) {
                                 JSONObject data = jsonObj.getJSONObject(i);
                                 String socialID = data.getString("social_id");
                                 String SocialProfileID = data.getString("social_profileid");
@@ -182,6 +185,7 @@ public class EditInfoFragment extends Fragment implements View.OnClickListener{
         });
         queue.add(jsonObjectRequest);
     }
+
     public void getSocialImages(List<SocialIdModel> socialIdModels){
         int i;
 
@@ -235,6 +239,7 @@ public class EditInfoFragment extends Fragment implements View.OnClickListener{
         ImagesList.add(socialIdModel1);
         gridView.setAdapter(new IdentityCustomeAdapter(getContext().getApplicationContext(), ImagesList,true,asyncResult_clickRegisterBtn));
     }
+
     public int switchColor(String IdentityColor) {
         int setColor = R.color.colorTextGray;
 

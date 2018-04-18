@@ -25,7 +25,7 @@ public class IdentityCustomeAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     Boolean isEdit =false;
     public AsyncResult<String > asyncResult_clickRegisterBtn1;
-    public IdentityCustomeAdapter(Context context,List<SocialIdModel> socialIdModels,Boolean isEdit,AsyncResult<String> asyncResult_clickRegisterBtn1) {
+    public IdentityCustomeAdapter(Context context, List<SocialIdModel> socialIdModels, Boolean isEdit, AsyncResult<String> asyncResult_clickRegisterBtn1) {
         // TODO Auto-generated constructor stub
 
         this.context = context;
